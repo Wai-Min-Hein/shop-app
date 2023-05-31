@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+
+
+.nav-btn,.nav-btn::after, .nav-btn::before{
+	width: 1.25rem;
+	height: 2px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #181818;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%); 
+	transition: all .3s;
+	
+	
+} 
+
+.nav-btn::after{
+	content: '';
+	top: .5rem;
+}
+.nav-btn::before{
+	content: '';
+	top: -.5rem;
+}
+.nav-active .nav-btn{
+	background-color: transparent;
+
+}
+
+.nav-active .nav-btn::after{
+	top: 0;
+	left: 0;
+	transform: rotate(45deg);
+}
+.nav-active .nav-btn::before{
+	top: 0;
+	left: 0;
+	transform: rotate(-45deg);
+}
+
+
+.background{
+	clip-path: circle(30px at 40px 40px);
+}
+
+
+
+.swiper-pagination {
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+
+	padding-top: 2rem !important;
+	
+	/* margin-bottom: 2rem !important; */
+}
+.swiper-pagination-bullet {
+	width: 3rem !important;
+	height: 3rem !important;
+	border-radius: 1px !important;
+	opacity: 1 !important;
+	background: transparent !important;
+	transition: all .3s;
+	margin: 0 .5rem !important;
+
+}
+.swiper-pagination-bullet-active {
+	background: transparent !important;
+	transform: translateY(-13px) scale(1.15);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* npx tailwindcss -i ./src/App.css -o ./Css/output.css --watch */
+
+
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;500;600;700;800;900&family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,500&display=swap');
