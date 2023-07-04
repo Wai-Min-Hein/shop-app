@@ -116,6 +116,7 @@ const Profile = () => {
     setAddProduct({ ...addProduct, ...input });
   };
 
+
   const [addProductItemData, setAddProductItemData] = useState({});
 
   useEffect(() => {
@@ -128,11 +129,13 @@ const Profile = () => {
   }, [urlImage]);
 
   const addProductItem = () => {
-    postAddProduct(addProductItemData);
+    // postAddProduct(addProductItemData);
     postAllProduct(addProductItemData);
 
     handleCancel();
   };
+
+
   const fileRef = useRef();
 
   const editProfile = () => {
@@ -215,7 +218,7 @@ const adminData = alluser?.filter(user => user?.email == 'waiminhein@gmail.com')
               <button
                 type="submit"
                 key="submit"
-                onClick={() => (addProductItem(), addNotiStatus())}
+                onClick={() => (addProductItem(), addNotiStatus(), nav('/allproduct'))}
                 className="bg-btn px-4 py-1 rounded-md"
               >
                 Add
@@ -235,7 +238,7 @@ const adminData = alluser?.filter(user => user?.email == 'waiminhein@gmail.com')
 
                 <textarea
                   name="description"
-                  onChange={getInput}
+                  onChange={(event) => getInput(event)}
                   // value={addProduct?.description}
                   placeholder="Description"
                   className="w-full px-4 py-2 mt-3 border border-bg-second focus:outline-none "
@@ -247,7 +250,7 @@ const adminData = alluser?.filter(user => user?.email == 'waiminhein@gmail.com')
 
                 <input
                   name="price"
-                  onChange={getInput}
+                  onChange={(event) => getInput(event)}
                   // value={addProduct?.price}
 
                   type="number"
@@ -255,14 +258,14 @@ const adminData = alluser?.filter(user => user?.email == 'waiminhein@gmail.com')
                   className="w-full px-4 py-2 mt-3 border border-bg-second focus:outline-none "
                   required
                 />
-                <input
+                {/* <input
                   type="number"
                   name="discountPercentage"
                   className="w-full px-4 py-2 mt-3 border border-bg-second focus:outline-none "
                   placeholder="DiscountPercentage"
                   required
-                  onChange={getInput}
-                />
+                  onChange={(event) => getInput(event)}
+                /> */}
 
                 <input
                   type="text"
@@ -270,7 +273,7 @@ const adminData = alluser?.filter(user => user?.email == 'waiminhein@gmail.com')
                   className="w-full px-4 py-2 mt-3 border border-bg-second focus:outline-none "
                   placeholder="Brand"
                   required
-                  onChange={getInput}
+                  onChange={(event) => getInput(event)}
                 />
                 <input
                   type="text"
@@ -278,7 +281,7 @@ const adminData = alluser?.filter(user => user?.email == 'waiminhein@gmail.com')
                   className="w-full px-4 py-2 mt-3 border border-bg-second focus:outline-none "
                   placeholder="Category"
                   required
-                  onChange={getInput}
+                  onChange={(event) => getInput(event)}
                 />
                 <input
                   type="number"
@@ -286,7 +289,7 @@ const adminData = alluser?.filter(user => user?.email == 'waiminhein@gmail.com')
                   className="w-full px-4 py-2 mt-3 border border-bg-second focus:outline-none "
                   placeholder="Rating"
                   required
-                  onChange={getInput}
+                  onChange={(event) => getInput(event)}
                 />
 
                 <input

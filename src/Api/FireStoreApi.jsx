@@ -59,6 +59,15 @@ export const postAddProduct = (object) => {
       console.log(err);
     });
 };
+export const getAllAddedProduct = (setAllAddedProduct) => {
+  onSnapshot(addPostRef, (response) => {
+    setAllAddedProduct(
+      response.docs.map((doc) => {
+        return { ...doc.data(), id: doc.id };
+      })
+    );
+  });
+};
 
 export const postAllProduct = (object) => {
   addDoc(allProductForRendering, object)
@@ -78,6 +87,17 @@ export const getPostAllProduct = (setAllProductFirebase) => {
   });
 };
 
+export const updateAllProduct = (productId, updateData)=> {
+  const updateRef = doc(allProductForRendering, productId)
+
+  updateDoc(updateRef, updateData)
+  .then(() => {
+  })
+  .catch((err) => {
+    console.log('Error updating data:', err);
+  });
+}
+
 export const deletePost = (id, nav) => {
   let docToDelete = doc(allProductForRendering, id);
   try {
@@ -88,15 +108,7 @@ export const deletePost = (id, nav) => {
   }
 };
 
-export const getAllAddedProduct = (setAllAddedProduct) => {
-  onSnapshot(addPostRef, (response) => {
-    setAllAddedProduct(
-      response.docs.map((doc) => {
-        return { ...doc.data(), id: doc.id };
-      })
-    );
-  });
-};
+
 
 export const getCurrentUser = (setCurrentUser, email) => {
   const singleQueryUser = query(userRef, where("email", "==", email));

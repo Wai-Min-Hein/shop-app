@@ -20,12 +20,13 @@ import laptpo2 from "../../img/laptop2.png";
 import phone from "../../img/phone.png";
 import cloth from "../../img/shirt.png";
 import shoe from "../../img/shoe.png";
-
+import { useNavigate } from "react-router-dom";
 
 
 
 
 const LandingPage = () => {
+  const nav = useNavigate()
   const menu = [laptpo2, phone, cloth, shoe]
 const renderBullet = (index, className) => 
   {
@@ -72,7 +73,7 @@ const renderBullet = (index, className) =>
                 laptops. Shop now for the latest models and take advantage of
                 our competitive prices.
               </p>
-              <button className="bg-btn px-3 py-2 rounded-md text-btn-text text-lg">
+              <button onClick={() => nav('/detail/k4Yj0u5G9M5oRjd3qlOR')} className="bg-btn px-3 py-2 rounded-md text-btn-text text-lg">
                 Checkout
               </button>
             </div>
@@ -161,7 +162,6 @@ const renderBullet = (index, className) =>
       </div> */}
 
       <div className="swiper-pagination ">
-        {/* <RxDot className="active:!text-red-500" /> */}
       </div>
     </div>
   );

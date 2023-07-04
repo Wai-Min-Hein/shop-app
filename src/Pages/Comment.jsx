@@ -14,6 +14,7 @@ const Comment = ({ comment, ifAdmin, currentUser,setReply,setComment, reply }) =
     const [editComment, setEditComment] = useState(comment?.comment)
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+
   const isAdmin = comment?.email ==  "waiminhein@gmail.com"
 
   const adminName = " (Admin)"

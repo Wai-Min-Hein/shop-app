@@ -1,11 +1,58 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { StateContext } from "../Context/Context";
-import NavBar from "./NavBar";
 import AllProductComponent from "../Components/AllProductComponent";
 import { getAllComment } from "../Api/FireStoreApi";
+import { motion, useMotionValueEvent, useScroll } from "framer-motion";
 
 const AllProduct = () => {
   const { allProductToRender, search } = useContext(StateContext);
+
+//   const ref = useRef()
+
+//   const { scrollY } = useScroll()
+
+//   const [topVal, setTopVal] = useState(0)
+
+
+//   const btnVariant = {
+//     open: {top: `${(topVal+400)}px`, transition:{duration:1.5}},
+//     closed: {top: 0, transition:{duration:1.5}}
+//   }
+
+// useMotionValueEvent(scrollY, "change", (latest) => {
+//   setTopVal(latest)
+// })
+
+
+
+
+// useEffect(() => {
+//   const handleClick = (e) => {
+//     const x= e.pageX
+//     const y = e.pageY
+//     console.log(x)
+//     btn.style.transform = `translate(${x*0.05}px, ${y*0.05}px)`
+//   };
+
+//   const divElement = document.getElementById('myDiv');
+//   const btn = document.querySelector('.btn');
+
+//   if (divElement) {
+//     divElement.addEventListener('mouseover', (e) => handleClick(e));
+//   }
+
+//   return () => {
+//     if (divElement) {
+//       divElement.removeEventListener('mouseover', handleClick);
+//     }
+//   };
+// }, []);
+
+
+
+
+
+
 
   const filterItems = search
     ? allProductToRender?.filter(
@@ -31,8 +78,12 @@ const AllProduct = () => {
 
 
   return (
-    <div className="container mx-auto">
-      {/* <NavBar /> */}
+    <div  id="myDiv" className="container mx-auto relative">
+      {/* <motion.div
+      // initial={'closed'}
+      animate={'open'}
+      variants={btnVariant}
+      className="absolute w-[3rem] h-[3rem] rounded-full  right-[-4rem] z-50 bg-primary btn"></motion.div> */}
 
       <div className=" flex flex-wrap gap-5 justify-start items-stretch mt-10">
         {search === "" ? (

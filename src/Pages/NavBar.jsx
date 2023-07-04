@@ -155,8 +155,8 @@ const NavBar = ({ profileUrl }) => {
   };
 
   return (
-    <nav className="bg-bg flex items-center justify-between gap-5 z-50  rounded-xl md:px-8 py-3 px-5 sticky top-0 shadow-xl container mx-auto">
-      <div className="flex items-center justify-between gap-5">
+    <nav className="bg-bg flex items-center justify-between gap-5 z-50  rounded-xl md:px-8 py-3 px-10 sticky top-0 shadow-xl container mx-auto">
+      <div className="flex items-center justify-start gap-5">
         <motion.h1
           initial={{ zIndex: 1000 }}
           animate={active ? "open" : "closed"}
@@ -172,7 +172,7 @@ const NavBar = ({ profileUrl }) => {
             initial={{ display: "none" }}
             animate={active ? "open" : "closed"}
             variants={divVariant}
-            className={`fixed top-0 left-0 lg:w-[20vw] md:w-[30vw] h-screen overflow-hidden  `}
+            className={`fixed top-0 left-0 lg:w-[20vw] md:w-[30vw] h-screen overflow-hidden `}
           >
             <motion.div
               initial={{ opacity: 0 }}
@@ -344,7 +344,7 @@ const NavBar = ({ profileUrl }) => {
         </div>
       </div>
 
-      <div className="bg-bg shadow-lg md:flex mx-auto lg:w-[40rem] xl:w-[45rem]  md:w-[22rem] justify-between py-2 px-4 items-center rounded-full hidden">
+      <div className="bg-bg shadow-lg md:flex mx-auto flex-1 justify-between  py-2 px-4 items-center rounded-full hidden">
         <input
           value={search}
           onChange={searchHandler}
@@ -356,8 +356,9 @@ const NavBar = ({ profileUrl }) => {
         <AiOutlineSearch className="text-xl" />
       </div>
 
+
       <span
-        className=" bg-slate-300 p-2 relative rounded-full cursor-pointer"
+        className=" bg-slate-300 p-2 relative rounded-full cursor-pointer ml-auto"
         onClick={() => nav("/notification")}
       >
         <IoIosNotifications className="text-3xl" />

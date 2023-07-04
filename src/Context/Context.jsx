@@ -36,7 +36,9 @@ const[cartProducts, setCartProducts] = useState([])
 
 
 
-  const allProductToRender = allProduct && allProductFirebase &&  [...allProductFirebase, ...allProduct];
+  // const allProductToRender = allProduct && allProductFirebase &&  [...allProductFirebase, ...allProduct];
+  const allProductToRender =allProductFirebase &&  [...allProductFirebase];
+
 
   
 
@@ -136,7 +138,6 @@ useEffect(() => {
 
   const data = {
     allProduct,
-    allAddedProduct,
     setAllAddedProduct,
     allProductToRender,
     allProductFirebase,
