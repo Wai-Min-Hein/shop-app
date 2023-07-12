@@ -63,13 +63,13 @@ useEffect(() => {
   return (
     <div
       ref={notiSectionRef}
-      className=" bg-gray-300 px-5 py-6  rounded-md w-[80%] mt-5"
+      className=" bg-gray-300 px-5 py-6  rounded-md w-full md:w-[80%] mt-5"
     >
-      <div className="flex justify-start items-center gap-4">
+      <div className="flex flex-col md:flex-row items-start md:justify-start md:items-center gap-4">
         <img src={noti?.profileUrl} className="w-10 h-10 rounded-full" alt="" />
 
         <div className="">
-          <p className="text-lg font-para font-light">
+          <p className="text-[1rem] md:text-lg font-para font-light">
             {`Dear user, we added " ${noti?.notiStatus} " product on our website. So you can enjoy our new product.`}{" "}
             <br /> Thank you for using our website.{" "}
           </p>

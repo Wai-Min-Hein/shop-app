@@ -1472,6 +1472,10 @@ video {
   font-size: 1.1rem;
 }
 
+.text-\[1rem\]{
+  font-size: 1rem;
+}
+
 .font-\[400\]{
   font-weight: 400;
 }
@@ -1962,6 +1966,10 @@ video {
     width: 2.5rem;
   }
 
+  .md\:w-\[80\%\]{
+    width: 80%;
+  }
+
   .md\:basis-\[40\%\]{
     flex-basis: 40%;
   }
@@ -1976,6 +1984,10 @@ video {
 
   .md\:items-center{
     align-items: center;
+  }
+
+  .md\:justify-start{
+    justify-content: flex-start;
   }
 
   .md\:justify-between{

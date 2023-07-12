@@ -11,7 +11,7 @@ const {allNoti} = useContext(StateContext)
 
   
   return (
-    <div className='container mx-auto my-10'>
+    <div className='md:container md:mx-auto my-10'>
       <h1 className='font-header font-bold text-xl'>Notifications</h1> 
 
 
