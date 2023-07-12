@@ -84,7 +84,7 @@ const LoginComponent = () => {
 
   return (
     <div className="container mx-auto z-20 relative grid place-items-center h-screen">
-      <div className="bg-[rgba(255,255,255,0.1)] shadow-lg rounded-md px-4 py-6 relative overflow-hidden">
+      <div className="bg-white shadow-lg rounded-md px-4 py-6 relative overflow-hidden">
       {/* lg:w-[40vw] xl:w-[30vw] w-[75vw] md:w-[50vw] h-[28rem] */}
         <div className="absolute top-0 left-0 w-full flex justify-start">
           <button onClick={() => (setLoginActive(true), setSignUpActive(false))} className={`w-full py-3 ${loginActive? "border-b-2  border-primary": ""}`}>Login</button>
@@ -111,7 +111,7 @@ const LoginComponent = () => {
             </div>
             <div className="">
               <input
-                className="focus:outline-none bg-[rgba(255,255,255,0.1)] border-none rounded-full shadow-md px-4 py-2  border-2 w-full font-para text-[rgba(0,0,0.9)]"
+                className="focus:outline-none bg-white border-none rounded-full shadow-md px-4 py-2  border-2 w-full font-para text-[rgba(0,0,0.9)]"
                 onChange={(e) =>
                   setCredentials({ ...credentials, email: e.target.value })
                 }
@@ -119,7 +119,7 @@ const LoginComponent = () => {
                 placeholder="Email or Phone"
               />
             </div>
-            <div className="mt-5 flex justify-between bg-[rgba(255,255,255,0.1)] shadow-md rounded-full items-center  border-none px-4 py-2  w-full">
+            <div className="mt-5 flex justify-between bg-white shadow-md rounded-full items-center  border-none px-4 py-2  w-full">
               <input
                 ref={ref}
                 id="pass"
@@ -189,7 +189,7 @@ const LoginComponent = () => {
                   type="text"
                   id="name"
                   autoFocus
-                  className="  bg-[rgba(255,255,255,0.1)] border-none rounded-full shadow-md focus:outline-none px-4 py-2 border-2 w-full"
+                  className="  bg-white border-none rounded-full shadow-md focus:outline-none px-4 py-2 border-2 w-full"
                 />
               </div>
               <div className="">
@@ -202,12 +202,12 @@ const LoginComponent = () => {
                   }
                   type="email"
                   id="email"
-                  className="   bg-[rgba(255,255,255,0.1)] border-none rounded-full shadow-md focus:outline-none px-4 py-2  w-full"
+                  className="   bg-white border-none rounded-full shadow-md focus:outline-none px-4 py-2  w-full"
                 />
               </div>
               <div className="">
                 <label htmlFor="password">Password</label>
-                <div className="  bg-[rgba(255,255,255,0.1)] border-none rounded-full shadow-md focus:outline-none px-4 py-2 flex justify-between  w-full">
+                <div className="  bg-white border-none rounded-full shadow-md focus:outline-none px-4 py-2 flex justify-between  w-full">
                   <input
                     onChange={(e) =>
                       setCredentials({

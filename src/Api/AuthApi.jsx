@@ -37,7 +37,6 @@ export const loginApi =async (email, password) => {
 export const logOutApi = () => {
   try{
     signOut(auth)
-    console.log('success')
   }
   catch(err){
     return err

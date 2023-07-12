@@ -17,7 +17,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Modal } from "antd";
 import { getUniqueID } from "../Common/UuId/UniqueId";
-import { uploadImage, uploadProfileImage } from "../Api/ImageUploadApi";
+import { uploadImage, uploadProfileImage, uploadRelatedImage } from "../Api/ImageUploadApi";
 import { StateContext } from "../Context/Context";
 import ProfileFav from "./ProfileFav";
 import { SwiperSlide, Swiper } from "swiper/react";
@@ -41,13 +41,19 @@ const Profile = () => {
   const [progresspercent, setProgressPercent] = useState(0);
 
   const [profileUrl, setProfileUrl] = useState("");
+  const [relatedImages, setRelatedImages] = useState([])
 
   const [fileExisted, SetFileExisted] = useState(null);
+  const [relatedFileExisted, setRelatedFileExisted] = useState(null);
+  const [relatedLinkExisted, setRelatedLinkExisted] = useState(null);
 
   const [imageLinkExisted, setImageLinkExisted] = useState(null);
 
   const checkFile = (file) => {
     SetFileExisted(file);
+  };
+  const checkRelatedFile = (file) => {
+    setRelatedFileExisted(file)
   };
 
   const checkImageLink = (event) => {
@@ -116,17 +122,18 @@ const Profile = () => {
     setAddProduct({ ...addProduct, ...input });
   };
 
-
   const [addProductItemData, setAddProductItemData] = useState({});
+  console.log(addProductItemData)
 
   useEffect(() => {
     let addProductItem = urlImage && {
       id: getUniqueID(),
       ...addProduct,
       thumbnail: urlImage,
+      relatedImages
     };
     setAddProductItemData(addProductItem);
-  }, [urlImage]);
+  }, [urlImage,relatedImages]);
 
   const addProductItem = () => {
     // postAddProduct(addProductItemData);
@@ -163,10 +170,24 @@ const adminData = alluser?.filter(user => user?.email == 'waiminhein@gmail.com')
   }
 
   const addNotiStatus = () => postNotiData(noti)
+  const [inputRelatedImages, setInputRelatedImages] = useState(false)
+  const [relatedImagesCount, setRelatedImagesCount] = useState(0)
+  const btnDisable = inputRelatedImages ? (relatedImages.length>=relatedImagesCount? false: true) : false
+ 
 
 
+const handleUploadRelatedImage = (event) => {
+  event.target.files ? setInputRelatedImages(true):setInputRelatedImages(false)
+  checkRelatedFile(event.target.files)
+  setRelatedImagesCount(event.target.files.length)
+  uploadRelatedImage(
+         event.target.files,
+      setRelatedImages,
+      setProgressPercent
+    )
 
 
+}
   return (
     <div className="container mx-auto">
       {/* <NavBar profileUrl={profileUrl} /> */}
@@ -219,9 +240,11 @@ const adminData = alluser?.filter(user => user?.email == 'waiminhein@gmail.com')
                 type="submit"
                 key="submit"
                 onClick={() => (addProductItem(), addNotiStatus(), nav('/allproduct'))}
-                className="bg-btn px-4 py-1 rounded-md"
+                className={`bg-btn px-4 py-1 rounded-md ${btnDisable? 'opacity-60': ''}`}
+                disabled={btnDisable}
               >
-                Add
+                {btnDisable? <span>Loading ...</span>: <span>Add</span>}
+                
               </button>,
             ]}
           >
@@ -325,6 +348,16 @@ const adminData = alluser?.filter(user => user?.email == 'waiminhein@gmail.com')
                       : `hidden`
                   }
                 />
+                <h6 className="mt-4">Related Images</h6>
+                <input
+                onChange={handleUploadRelatedImage}
+                className={`${relatedLinkExisted? 'hidden': ''}`}
+                
+                type="file" multiple name="" id="" />
+                <input type="text" placeholder="Related Images" 
+                onChange={(event) => (setRelatedImages(event.target.value.split(', '), setRelatedLinkExisted(event.target.value)))}
+                  className={`w-full px-4 py-2 mt-3 border border-bg-second focus:outline-none ${relatedFileExisted? 'hidden': ''}`}
+                  name="" id="" />
               </form>
           </Modal>
         </div>

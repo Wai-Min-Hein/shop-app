@@ -15,7 +15,6 @@ const Detail = () => {
 
 
 
-
  
   return (
     <div className="container mx-auto">

@@ -47,11 +47,12 @@ const[cartProducts, setCartProducts] = useState([])
 
 
 
-
   const email = localStorage.getItem("userEmail")
   const[currentUser, setCurrentUser] = useState({})
-  const [admin, setAdmin] = useState([])
+  // const [admin, setAdmin] = useState([])
   const [allNoti, setAllNoti] = useState([])
+ 
+
 
 
 
@@ -137,6 +138,8 @@ useEffect(() => {
 
 
   const data = {
+    currentUser,
+    userId,
     allProduct,
     setAllAddedProduct,
     allProductToRender,

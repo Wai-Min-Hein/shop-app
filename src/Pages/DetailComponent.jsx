@@ -21,16 +21,15 @@ import {
 import moment from "moment/moment";
 import Comment from "./Comment";
 import Swal from "sweetalert2";
-import { Modal } from "antd";
+import { Modal,  } from "antd";
+import { SwiperSlide, Swiper } from "swiper/react";
+import { A11y, Navigation,Pagination, Scrollbar } from "swiper";
+import DetailProduct from "./DetailProduct";
+import { useMotionValue, useTime } from "framer-motion";
 
-const DetailComponent = ({product}) => {
-  
- 
+const DetailComponent = ({ product }) => {
+  const { id } = useParams();
 
-    const { id } = useParams();
-
-
-  
   const {
     allProductToRender,
     favProducts,
@@ -69,7 +68,6 @@ const DetailComponent = ({product}) => {
   const [comment, setComment] = useState("");
   const [allComment, setAllComment] = useState([]);
 
-
   const addCommentHandler = (event) => {
     const inputComment = event.target.value;
     inputComment.length > 0 && setReply("");
@@ -77,8 +75,6 @@ const DetailComponent = ({product}) => {
 
     setComment(inputComment);
   };
-
- 
 
   const rating = Math.round(product?.rating);
 
@@ -114,14 +110,11 @@ const DetailComponent = ({product}) => {
       comment,
       ...currentUser,
       time: getTime(),
-      seen:false
+      seen: false,
     };
     postComment(addComment);
     commentRef.current.value = "";
-    setComment('')
-
-
-
+    setComment("");
   };
 
   let stars = "";
@@ -133,9 +126,6 @@ const DetailComponent = ({product}) => {
     }
   }
 
-
-
-  
   const handleAllFavDel = () => {
     const delProduct = allProductToRender?.filter(
       (product) => product?.id == id
@@ -147,7 +137,7 @@ const DetailComponent = ({product}) => {
 
     const productId = favProductIds?.id;
 
-    favProductIds&& allFavDel(productId);
+    favProductIds && allFavDel(productId);
   };
 
   const handleAllCartDel = () => {
@@ -161,36 +151,51 @@ const DetailComponent = ({product}) => {
 
     const productId = cartProductIds?.id;
 
-    cartProductIds&& allCartDel(productId);
-
-
-
-
+    cartProductIds && allCartDel(productId);
   };
 
+  const [updateTitle, setUpdateTitle] = useState(product?.title);
+  const [updateDescription, setUpdateDescription] = useState(
+    product?.description
+  );
+  const [updatePrice, setUpdatePrice] = useState(product?.price);
+  const [updateBrand, setUpdateBrand] = useState(product?.brand);
+  const [updateCategory, setUpdateCategory] = useState(product?.category);
+  const [updateRating, setUpdateRating] = useState(product?.rating);
 
- const [updateTitle, setUpdateTitle] = useState(product?.title)
- const [updateDescription, setUpdateDescription] = useState(product?.description)
- const [updatePrice, setUpdatePrice] = useState(product?.price)
- const [updateBrand, setUpdateBrand] = useState(product?.brand)
- const [updateCategory, setUpdateCategory] = useState(product?.category)
- const [updateRating, setUpdateRating] = useState(product?.rating)
+  const [updateData, setUpdateData] = useState({
+    ...product,
+    title: updateTitle,
+    description: updateDescription,
+    price: updatePrice,
+    brand: updateBrand,
+    category: updateCategory,
+    rating: updateRating,
+  });
 
- const [updateData, setUpdateData] = useState({...product, title: updateTitle, description: updateDescription, price: updatePrice, brand: updateBrand,category: updateCategory, rating: updateRating })
+  useEffect(() => {
+    setUpdateData({
+      ...product,
+      title: updateTitle,
+      description: updateDescription,
+      price: updatePrice,
+      brand: updateBrand,
+      category: updateCategory,
+      rating: updateRating,
+    });
+  }, [
+    updateTitle,
+    updateDescription,
+    updatePrice,
+    updateBrand,
+    updateCategory,
+    updateRating,
+  ]);
 
- useEffect(() =>{
-    setUpdateData({...product, title: updateTitle, description: updateDescription, price: updatePrice, brand: updateBrand,category: updateCategory, rating: updateRating })
- }, [updateTitle, updateDescription, updatePrice, updateBrand, updateCategory, updateRating])
-
-
- const productId = product?.id
-const updateProduct = () => {
-    updateAllProduct(productId, updateData)
-}
-
-
-
-
+  const productId = product?.id;
+  const updateProduct = () => {
+    updateAllProduct(productId, updateData);
+  };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -206,22 +211,11 @@ const updateProduct = () => {
     setIsModalOpen(false);
   };
 
-
   const handleEditProduct = () => {
     const editProduct = allProductToRender?.filter(
       (product) => product?.id == id
     )[0];
-
-  }
-  
-
-
-
-
-
-
-
-
+  };
 
   const swalWithButtons = Swal.mixin({
     customClass: {
@@ -244,9 +238,9 @@ const updateProduct = () => {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          deletePost(id, nav)
-          handleAllFavDel()
-          handleAllCartDel()
+          deletePost(id, nav);
+          handleAllFavDel();
+          handleAllCartDel();
 
           swalWithButtons.fire(
             "Deleted!",
@@ -266,43 +260,95 @@ const updateProduct = () => {
       });
   };
 
+  const slideImages = product?.relatedImages
+    ? [product?.thumbnail, ...product?.relatedImages]
+    : null;
 
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
 
+  const handleMouseMove = (event) => {
+    const { left, top, width, height } = event.target.getBoundingClientRect();
+    const x = (event.clientX - left) / width;
+    const y = (event.clientY - top) / (height*1.5);
+    setPosition({ x, y });
+  };
+
+  const handleMouseEnter = () => {
+    setZoom(1.5);
+  };
+
+  const handleMouseLeave = () => {
+    setPosition({ x: 0, y: 0 });
+    setZoom(1);
+  };
+  
+  const renderBullet = (index, className) => {
+    return `
+    <span class="${className}">
+
+    <img  src="${slideImages[index]}" alt="" />
+    </span>
+    `;
+  };
+
+  const [width, setWidth] = useState(0)
+useEffect(() => {
+  const updateWidth = 
+    setTimeout(() => {
+      setWidth(prev => prev+1)
+    }, 30);
+    if(width>= 100)
+    clearInterval(updateWidth)
+  
+}, [width])
 
   return (
     <div className="container mx-auto">
+      <div className="mt-16 mb-8 flex relative justify-between items-start mx-auto px-5 md:px-0">
+        
+        {/* <div className="basis-[40%] w-[20rem] h-full ">
+          
+          {slideImages ? (
+            <div className="relative">
+            <Swiper
+              modules={[Scrollbar, A11y, Pagination]}
+              spaceBetween={50}
+              slidesPerView={1}
+              pagination={{
+                el: ".swiper-pagination-img",
+                clickable: true,
+                renderBullet: renderBullet,
+              }}
+            >
+              {slideImages?.map((image, index) => (
+                <SwiperSlide key={index}>
+                  <div
+                   className="overflow-hidden border border-gray w-[25rem] h-[25rem] grid place-items-center"
+                   onMouseMove={handleMouseMove}
+                   onMouseEnter={handleMouseEnter}
+                   onMouseLeave={handleMouseLeave}
+                  >
 
-      <div className="mt-16 mb-8 lg:flex justify-between items-start mx-auto px-5 md:px-0">
-        <div className=" basis-40% flex flex-col items-baseline justify-between mb-8 lg:mb-0">
-          {product?.images ? (
-            <img
-              src={img ? img : product?.images[0]}
-              className="h-[20rem] max-w-[15rem] md:max-w-[18rem] lg:max-w-[25rem] rounded-md"
-              alt=""
-            />
+                  <img 
+                  style={{
+                    transform: `translate(-${position.x*50 }px, -${
+                      position.y*50 
+                    }px) scale(${zoom})`,
+                    transition: "transform 0.1s ease ",
+                  }}
+                  src={image} className="w-2/3 h-2/3 object-contain" alt="" />
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+            <div className="swiper-pagination-img flex items-center justify-around"></div>
+            </div>
           ) : (
-            <img
-              src={product?.thumbnail}
-              className="h-[20rem] max-w-[15rem] md:max-w-[18rem] lg:max-w-[25rem] rounded-md"
-              alt=""
-            />
+            <img src={product?.thumbnail} className="w-[20rem]" alt="" />
           )}
-          <div className="flex flex-wrap justify-center gap-3 items-center mt-10 object-contain">
-            {product?.images?.map((img, i) => (
-              <button
-                onClick={(e) => setImg(e.target.src)}
-                key={i}
-                className="w-[3rem] h-[3rem]"
-              >
-                <img
-                  src={img}
-                  className="w-full rounded-sm object-contain"
-                  alt=""
-                />
-              </button>
-            ))}
-          </div>
-        </div>
+        </div> */}
+        <DetailProduct slideImages={slideImages} product={product}/>
 
         <div className="font-para self-stretch basis-[50%] mt-20 lg:mt-auto">
           <h5 className=" text-para font-[700] text-2xl capitalize tracking-widest inline-block basis-2/5">
@@ -313,21 +359,36 @@ const updateProduct = () => {
           <h2 className="font-[500] text-xl mt-3 mb-1 capitalize">
             {product?.category}
           </h2>
-          <p className=" text-lg text-gray-500 capitalize">{product?.description}</p>
+          <p className=" text-lg text-gray-500 capitalize">
+            {product?.description}
+          </p>
+          
 
           {/* <p className="text-lg text-gray-500">
             You can get this product with {product?.discountPercentage}%
             discount.
           </p> */}
           <div className="mt-auto">
+
+
+
+
             <p className="text-xl mt-5 font-600] ">
               Price : $ {product?.price}
             </p>
 
-            <p className={ApiProductQuantity? 'text-xl mt-5 font-[500] ': 'hidden'}>
+            <p
+              className={
+                ApiProductQuantity ? "text-xl mt-5 font-[500] " : "hidden"
+              }
+            >
               Quantity : {cartQuantity ? cartQuantity : 1}
             </p>
-            <p className={ApiProductQuantity? 'text-xl mt-5 font-[500] ': 'hidden'}>
+            <p
+              className={
+                ApiProductQuantity ? "text-xl mt-5 font-[500] " : "hidden"
+              }
+            >
               Total Price For this Product : ${" "}
               {totalPrice ? totalPrice : product?.price}
             </p>
@@ -335,53 +396,51 @@ const updateProduct = () => {
 
           {!ifAdmin && (
             <div
-            className={
-              ApiProductQuantity ? "flex justify-start mt-5" : "hidden"
-            }
-          >
-            <button
-              className="bg-btn px-3 py-2 rounded-lg text-white mr-5"
-              onClick={() => {
-                increaseQuantity(ApiProductQuantity),
-                  cartHandleForQuantity(
-                    id,
-                    {
-                      ...product,
-                      quantity: cartQuantity + 1,
-                      totalPrice: product?.price * (cartQuantity + 1),
-                    },
+              className={
+                ApiProductQuantity ? "flex justify-start mt-5" : "hidden"
+              }
+            >
+              <button
+                className="bg-btn px-3 py-2 rounded-lg text-white mr-5"
+                onClick={() => {
+                  increaseQuantity(ApiProductQuantity),
+                    cartHandleForQuantity(
+                      id,
+                      {
+                        ...product,
+                        quantity: cartQuantity + 1,
+                        totalPrice: product?.price * (cartQuantity + 1),
+                      },
 
-                    cartProducts
-                  );
-              }}
-            >
-              Increase Quantity
-            </button>
-            <button
-              className="bg-btn px-3 py-2 rounded-lg text-white"
-              onClick={() => {
-                cartQuantity > 1 &&
-                  (decreaseQuantity(ApiProductQuantity),
-                  cartHandleForQuantity(
-                    id,
-                    {
-                      ...product,
-                      quantity: cartQuantity - 1,
-                      totalPrice: product?.price * (cartQuantity - 1),
-                    },
-                    cartProducts
-                  ));
-              }}
-            >
-              Decrease
-            </button>
-            {/* <button className="flex justify-center items-center ml-5">
+                      cartProducts
+                    );
+                }}
+              >
+                Increase Quantity
+              </button>
+              <button
+                className="bg-btn px-3 py-2 rounded-lg text-white"
+                onClick={() => {
+                  cartQuantity > 1 &&
+                    (decreaseQuantity(ApiProductQuantity),
+                    cartHandleForQuantity(
+                      id,
+                      {
+                        ...product,
+                        quantity: cartQuantity - 1,
+                        totalPrice: product?.price * (cartQuantity - 1),
+                      },
+                      cartProducts
+                    ));
+                }}
+              >
+                Decrease
+              </button>
+              {/* <button className="flex justify-center items-center ml-5">
               <AiOutlineComment className="text-4xl"/>
               <p className="text-xl">Comments</p> </button> */}
-          </div>
+            </div>
           )}
-
-          
 
           <div className="flex items-stretch justify-start gap-5 mt-3">
             {/* <button
@@ -408,19 +467,18 @@ const updateProduct = () => {
 
             {ifAdmin && (
               <div className="flex items-center justify-start gap-3">
-
-              <button
-                className="px-4 py-2 bg-red-500 rounded-md text-md font-[500] text-white font-para"
-                onClick={delPost}
-              >
-                Delete Product
-              </button>
-              <button
-                className="px-4 py-2 bg-btn rounded-md text-md font-[500] text-white font-para"
-                onClick={() => (showModal(), handleEditProduct())}
-              >
-                Edit Product
-              </button>
+                <button
+                  className="px-4 py-2 bg-red-500 rounded-md text-md font-[500] text-white font-para"
+                  onClick={delPost}
+                >
+                  Delete Product
+                </button>
+                <button
+                  className="px-4 py-2 bg-btn rounded-md text-md font-[500] text-white font-para"
+                  onClick={() => (showModal(), handleEditProduct())}
+                >
+                  Edit Product
+                </button>
               </div>
             )}
           </div>
@@ -457,66 +515,78 @@ const updateProduct = () => {
               setReply={setReply}
               reply={reply}
               setComment={setComment}
-
             />
           ))}
         </div>
       </div>
 
+<div className="">
+  <h2>Test Bar</h2>
+  <div className="mt-3 h-[.35rem] bg-slate-200 dark:bg-gray-dark rounded-full w-[8rem]">
+            <div
+            style={{
+              width: `${width}%`
+            }}
+            className={`bg-primary bg-sale-gradient bg-[length:0.6rem_0.6rem]  h-full rounded-full`}>
+              
+            </div>
+          </div>
+</div>
+
+      
+
       <Modal
-            title="Add New Product"
-            open={isModalOpen}
-            onOk={handleOk}
-            onCancel={handleCancel}
-            footer={[
-              <button
-                type="submit"
-                key="submit"
-                className="bg-btn px-4 py-1 rounded-md"
-                onClick={()=> (updateProduct(), handleOk())}
-              >
-                Update product
-              </button>,
-            ]}
+        title="Add New Product"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        footer={[
+          <button
+            type="submit"
+            key="submit"
+            className="bg-btn px-4 py-1 rounded-md"
+            onClick={() => (updateProduct(), handleOk())}
           >
-              <form action="" id="addProductForm" className="my-8">
-                <input
-                  type="text"
-                  name="title"
-                  value={updateTitle}
-                  onChange={(e) => setUpdateTitle(e.target.value)}
-                  className="w-full px-4 py-2 mt-3 border border-bg-second focus:outline-none "
-                  placeholder="Title"
-                  autoFocus
-                />
+            Update product
+          </button>,
+        ]}
+      >
+        <form action="" id="addProductForm" className="my-8">
+          <input
+            type="text"
+            name="title"
+            value={updateTitle}
+            onChange={(e) => setUpdateTitle(e.target.value)}
+            className="w-full px-4 py-2 mt-3 border border-bg-second focus:outline-none "
+            placeholder="Title"
+            autoFocus
+          />
 
-<textarea
-                  name="description"
-                  
-                  // value={addProduct?.description}
-                  placeholder="Description"
-                  value={updateDescription}
-                  onChange={(e) => setUpdateDescription(e.target.value)}
-                  className="w-full px-4 py-2 mt-3 border border-bg-second focus:outline-none "
-                  id=""
-                  cols="30"
-                  rows="5"
-                  required
-                ></textarea>
+          <textarea
+            name="description"
+            // value={addProduct?.description}
+            placeholder="Description"
+            value={updateDescription}
+            onChange={(e) => setUpdateDescription(e.target.value)}
+            className="w-full px-4 py-2 mt-3 border border-bg-second focus:outline-none "
+            id=""
+            cols="30"
+            rows="5"
+            required
+          ></textarea>
 
-                <input
-                  name="price"
-                  
-                  // value={addProduct?.price}
+          <input
+            name="price"
+            // value={addProduct?.price}
 
-                  type="number"
-                  value={updatePrice}
-                  onChange={(e) => setUpdatePrice(e.target.value)}
-                  placeholder="Price"
-                  className="w-full px-4 py-2 mt-3 border border-bg-second focus:outline-none "
-                  required
-                />
-                {/* <input
+            type="number"
+            value={updatePrice}
+            onChange={(e) => setUpdatePrice(e.target.value)}
+            placeholder="Price"
+            className="w-full px-4 py-2 mt-3 border border-bg-second focus:outline-none "
+            required
+          />
+          {/* <input
                   type="number"
                   name="discountPercentage"
                   className="w-full px-4 py-2 mt-3 border border-bg-second focus:outline-none "
@@ -525,45 +595,35 @@ const updateProduct = () => {
                   
                 /> */}
 
-                <input
-                  type="text"
-
-                  name="brand"
-                  
-                  value={updateBrand}
-                  onChange={(e) => setUpdateBrand(e.target.value)}
-                  className="w-full px-4 py-2 mt-3 border border-bg-second focus:outline-none "
-                  placeholder="Brand"
-                  required
-                  
-                />
-                <input
-                  type="text"
-                  name="category"
-                  
-                  value={updateCategory}
-                  onChange={(e) => setUpdateCategory(e.target.value)}
-                  className="w-full px-4 py-2 mt-3 border border-bg-second focus:outline-none "
-                  placeholder="Category"
-                  required
-                  
-                />
-                <input
-                  type="number"
-                  name="rating"
-                  
-                  value={updateRating}
-                  onChange={(e) => setUpdateRating(e.target.value)}
-                  className="w-full px-4 py-2 mt-3 border border-bg-second focus:outline-none "
-                  placeholder="Rating"
-                  required
-                  
-                />
-
-              </form>
-          </Modal>
-
-      
+          <input
+            type="text"
+            name="brand"
+            value={updateBrand}
+            onChange={(e) => setUpdateBrand(e.target.value)}
+            className="w-full px-4 py-2 mt-3 border border-bg-second focus:outline-none "
+            placeholder="Brand"
+            required
+          />
+          <input
+            type="text"
+            name="category"
+            value={updateCategory}
+            onChange={(e) => setUpdateCategory(e.target.value)}
+            className="w-full px-4 py-2 mt-3 border border-bg-second focus:outline-none "
+            placeholder="Category"
+            required
+          />
+          <input
+            type="number"
+            name="rating"
+            value={updateRating}
+            onChange={(e) => setUpdateRating(e.target.value)}
+            className="w-full px-4 py-2 mt-3 border border-bg-second focus:outline-none "
+            placeholder="Rating"
+            required
+          />
+        </form>
+      </Modal>
     </div>
   );
 };

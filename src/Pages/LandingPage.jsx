@@ -1,5 +1,5 @@
 // import Swiper core and required modules
-import  { Navigation, Pagination, Scrollbar, A11y } from "swiper";
+import  { Navigation, Pagination, Scrollbar, A11y, Autoplay, EffectFade } from "swiper";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 
@@ -30,10 +30,15 @@ const LandingPage = () => {
   const menu = [laptpo2, phone, cloth, shoe]
 const renderBullet = (index, className) => 
   {
-    // return '<span class="' + className + '">' + (menu[index]) + '</span>';
 
 
-    return `<img class="${className}" src="${menu[index]}" alt="" />`;
+    return `
+    
+    
+    <img class="${className}" src="${menu[index]}" alt="" />
+    
+    
+    `;
   }
 
   return (
@@ -46,7 +51,7 @@ const renderBullet = (index, className) =>
 
 
       <Swiper
-        modules={[Navigation, Pagination, Scrollbar, A11y]}
+        modules={[Navigation, Pagination, Scrollbar, A11y,Autoplay,EffectFade]}
         spaceBetween={50}
         slidesPerView={1}
         navigation={{
@@ -57,6 +62,11 @@ const renderBullet = (index, className) =>
           el: ".swiper-pagination",
           clickable: true,
           renderBullet: renderBullet
+        }}
+        loop={true}
+        autoplay={{
+          delay: 3000,
+          disableOnInteraction: false,
         }}
        
     

@@ -155,7 +155,7 @@ const NavBar = ({ profileUrl }) => {
   };
 
   return (
-    <nav className="bg-bg flex items-center justify-between gap-5 z-50  rounded-xl md:px-8 py-3 px-10 sticky top-0 shadow-xl container mx-auto">
+    <nav className="bg-bg flex items-center justify-between gap-5 z-50  rounded-xl md:px-8 py-3 px-10 mt-4 sticky top-0 shadow-xl container mx-auto">
       <div className="flex items-center justify-start gap-5">
         <motion.h1
           initial={{ zIndex: 1000 }}
