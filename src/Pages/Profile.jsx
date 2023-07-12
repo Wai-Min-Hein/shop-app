@@ -33,6 +33,7 @@ import "swiper/css/pagination";
 import ProfileCart from "./ProfileCart";
 import moment from "moment";
 import Loading from "../Components/Loading";
+import { useMediaQuery } from "react-responsive";
 
 const Profile = () => {
   const { favProducts, cartProducts,loading } = useContext(StateContext);
@@ -124,7 +125,6 @@ const Profile = () => {
   };
 
   const [addProductItemData, setAddProductItemData] = useState({});
-  console.log(addProductItemData)
 
   useEffect(() => {
     let addProductItem = urlImage && {
@@ -189,6 +189,13 @@ const handleUploadRelatedImage = (event) => {
 
 
 }
+const phone = useMediaQuery({
+  query: '(min-width: 768px)'
+})
+const tablet = useMediaQuery({
+  query: '(min-width: 1024px)'
+})
+
   return (
     <>
     {loading? (<Loading/>): (
@@ -387,14 +394,22 @@ const handleUploadRelatedImage = (event) => {
               <Swiper
                 // cssMode={true}
                 navigation={{
-                  prevEl: ".product-prev",
-                  nextEl: ".product-next",
+                  prevEl: ".product-prev1",
+                  nextEl: ".product-next1",
                 }}
                 // pagination={true}
                 // mousewheel={true}
                 keyboard={true}
                 spaceBetween={50}
-                slidesPerView={favProducts.length > 2 ? 3 : favProducts.length}
+                slidesPerView={
+                  tablet?(
+
+                    favProducts.length > 2 ? 3 : favProducts.length
+                  ):(
+                    phone?2:1
+
+                  )
+                }
                 // scrollbar={{ draggable: true }}
                 modules={[Navigation, Pagination, Mousewheel, Keyboard]}
                 className="mySwiper"
@@ -431,10 +446,10 @@ const handleUploadRelatedImage = (event) => {
             </h1>
 
             <div className={cartProducts.length > 3 ? "flex gap-3" : "hidden"}>
-              <div className="product-prev bg-btn p-2 text-para rounded-full hover:translate-y-[-4px] active:translate-y-[-1px] duration-200 cursor-pointer">
+              <div className="product-prev1 bg-btn p-2 text-para rounded-full hover:translate-y-[-4px] active:translate-y-[-1px] duration-200 cursor-pointer">
                 <FiArrowLeft />
               </div>
-              <div className="product-next bg-btn p-2 text-para rounded-full text-lg hover:translate-y-[-4px] active:translate-y-[-1px] duration-200 cursor-pointer">
+              <div className="product-next1 bg-btn p-2 text-para rounded-full text-lg hover:translate-y-[-4px] active:translate-y-[-1px] duration-200 cursor-pointer">
                 <FiArrowRight />
               </div>
             </div>
@@ -442,34 +457,26 @@ const handleUploadRelatedImage = (event) => {
           {cartProducts?.length > 0 ? (
             <div className="flex flex-wrap gap-1 md:gap-2 lg:gap-6 justify-center items-center mt-16 pb-6">
               <Swiper
-                // cssMode={true}
                 navigation={{
                   prevEl: ".product-prev",
                   nextEl: ".product-next",
                 }}
-                // pagination={true}
-                // mousewheel={true}
+             
                 keyboard={true}
                 spaceBetween={50}
                 slidesPerView={
-                  cartProducts.length > 2 ? 3 : cartProducts.length
+                  tablet?(
+
+                    cartProducts.length > 2 ? 3 : cartProducts.length
+                  ):(
+                    phone?2:1
+
+                  )
                 }
-                // scrollbar={{ draggable: true }}
                 modules={[Navigation, Pagination, Mousewheel, Keyboard]}
                 className="mySwiper"
-                // breakpoints={{
-                //   // when window width is >= 640px
-                //   640: {
-                //     slidesPerView: 1,
-                //   },
-                //   // when window width is >= 768px
-                //   768: {
-                //     slidesPerView: 2,
-                //   },
-                //   1024: {
-                //     slidesPerView: 3,
-                //   },
-                // }}
+                
+                
               >
                 {cartProducts?.map((cartProduct) => (
                   <SwiperSlide className="pb-5" key={cartProduct.id}>
