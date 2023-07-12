@@ -5,7 +5,9 @@ import { AiFillHeart } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { StateContext } from "../Context/Context";
 import { getCurrentUser } from "../Api/FireStoreApi";
-const AllProductComponent = ({product, filterCommentByProduct}) => {
+const AllProductComponent = ({product,filterComment}) => {
+  
+  const filterCommentByProduct = filterComment?.filter(comment => comment.postId == product?.id);
 
   const email = localStorage.getItem("userEmail");
 

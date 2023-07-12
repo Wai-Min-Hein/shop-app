@@ -82,43 +82,34 @@ const AllProduct = () => {
    <>
    {loading? (<Loading/>): (
      <div  id="myDiv" className="container mx-auto relative">
-     {/* <motion.div
-     // initial={'closed'}
-     animate={'open'}
-     variants={btnVariant}
-     className="absolute w-[3rem] h-[3rem] rounded-full  right-[-4rem] z-50 bg-primary btn"></motion.div> */}
+    
 
-     <div className=" flex flex-wrap gap-5 justify-start items-stretch mt-10">
-       {search === "" ? (
-         allProductToRender?.map((product) => {
-           const filterCommentByProduct = filterComment?.filter(comment => comment.postId == product?.id);
-         
-           return (
-             <React.Fragment key={product?.id}>
-               <AllProductComponent product={product} filterCommentByProduct={filterCommentByProduct}/>
-               {/* You can use the filterCommentByProduct variable here */}
-               {/* ... */}
-             </React.Fragment>
-           );
-         })
-       ) : items?.length <= 0 ? (
-         <h1 className="text-head text-3xl font-para mt-24">
+<div className=" flex flex-wrap gap-5 justify-start items-stretch mt-10">
+
+     {/* {
+      allProductToRender?.map(product => (
+        <AllProductComponent key={product?.id} product={product} filterComment={filterComment}/>
+      ))
+     } */}
+     {search==="" ? (
+       allProductToRender?.map(product => (
+        <AllProductComponent key={product?.id} product={product} filterComment={filterComment}/>
+      ))
+     ): (
+        items?.length<=0? (
+          <h1 className="text-head text-3xl font-para mt-24">
            No Products found
          </h1>
-       ) : (
-         items?.map((product) => {
-           const filterCommentByProduct = filterComment?.filter(comment => comment.postId == product?.id);
-         
-           return (
-             <React.Fragment key={product?.id}>
-               <AllProductComponent product={product} filterCommentByProduct={filterCommentByProduct}/>
-               {/* You can use the filterCommentByProduct variable here */}
-               {/* ... */}
-             </React.Fragment>
-           );
-         })
-       )}
+        ): (
+          items?.map(product => (
+            <AllProductComponent key={product?.id} product={product} filterComment={filterComment}/>
+          ))
+
+        )
+     )}
      </div>
+
+    
    </div>
    )}
    </>
