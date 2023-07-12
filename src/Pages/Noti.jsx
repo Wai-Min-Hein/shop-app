@@ -1,17 +1,22 @@
 import { useContext } from 'react'
 import NotiComponent from '../Components/NotiComponent';
 import { StateContext } from '../Context/Context';
+import Loading from '../Components/Loading';
 
 const Noti = () => {
 
-const {allNoti} = useContext(StateContext)
+const {allNoti,loading} = useContext(StateContext)
 
 
 
 
   
   return (
-    <div className='md:container md:mx-auto my-10'>
+    <>
+    
+    {
+      loading? (<Loading/>): (
+        <div className='md:container md:mx-auto my-10'>
       <h1 className='font-header font-bold text-xl'>Notifications</h1> 
 
 
@@ -23,6 +28,9 @@ const {allNoti} = useContext(StateContext)
 </div>
 
     </div>
+      )
+    }
+    </>
   )
 }
 

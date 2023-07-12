@@ -74,6 +74,9 @@ const[cartProducts, setCartProducts] = useState([])
 
 const userId = currentUser&& currentUser?.id
 
+const [loading, setLoading] = useState(true)
+
+
 
 
 
@@ -154,6 +157,7 @@ useEffect(() => {
     setAllProductFirebase,
     search, setSearch,
     allNoti,
+    loading, setLoading
     
   };
 

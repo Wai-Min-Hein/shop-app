@@ -3,10 +3,11 @@ import {  useParams } from "react-router-dom";
 import DetailComponent from "./DetailComponent";
 import { StateContext } from "../Context/Context";
 import { useContext } from "react";
+import Loading from "../Components/Loading";
 
 const Detail = () => {
   const {
-    allProductToRender,
+    allProductToRender,loading
     
   } = useContext(StateContext);
   
@@ -24,7 +25,7 @@ const Detail = () => {
       <DetailComponent product={product}/>
 
         ): (
-          <div className="">No Product</div>
+          <Loading/>
         )
       }
 

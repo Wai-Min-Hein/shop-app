@@ -32,9 +32,10 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import ProfileCart from "./ProfileCart";
 import moment from "moment";
+import Loading from "../Components/Loading";
 
 const Profile = () => {
-  const { favProducts, cartProducts } = useContext(StateContext);
+  const { favProducts, cartProducts,loading } = useContext(StateContext);
 
   const totalPrice = cartProducts?.reduce((pv, cv) => pv + cv?.totalPrice, 0);
 
@@ -189,8 +190,9 @@ const handleUploadRelatedImage = (event) => {
 
 }
   return (
-    <div className="md:container md:mx-auto px-6 md:px-0">
-      {/* <NavBar profileUrl={profileUrl} /> */}
+    <>
+    {loading? (<Loading/>): (
+      <div className="md:container md:mx-auto px-6 md:px-0">
 
       <div className="bg-bg-cart px-10 py-8 shadow rounded-md mt-8 w-full lg:w-[75%] mx-auto grid place-items-center">
       <div className="mb-5">
@@ -488,6 +490,8 @@ const handleUploadRelatedImage = (event) => {
         </div>
       </div>
     </div>
+    )}
+    </>
   );
 };
 

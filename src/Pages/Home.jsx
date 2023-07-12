@@ -1,13 +1,18 @@
+import { useContext } from "react";
 import LandingPage from "./LandingPage";
-import NavBar from "./NavBar";
+import { StateContext } from "../Context/Context";
+import Loading from "../Components/Loading";
 
 const Home = () => {
+
+  const {loading} = useContext(StateContext)
   
   
   return (
-    <div className=" ">
+    <>
+    {loading? (<Loading/>): (
+      <div className=" ">
       <div className="container mx-auto">
-        {/* <NavBar /> */}
 
         <div className="">
           <LandingPage />
@@ -16,6 +21,8 @@ const Home = () => {
         </div>
       </div>
     </div>
+    )}
+    </>
   );
 };
 
