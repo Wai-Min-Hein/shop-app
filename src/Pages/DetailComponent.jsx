@@ -305,49 +305,9 @@ useEffect(() => {
 
   return (
     <div className="container mx-auto">
-      <div className="mt-16 mb-8 flex relative justify-between items-start mx-auto px-5 md:px-0">
+      <div className="mt-16 mb-8 flex flex-col lg:flex-row relative justify-between items-start mx-auto px-5 md:px-0">
         
-        {/* <div className="basis-[40%] w-[20rem] h-full ">
-          
-          {slideImages ? (
-            <div className="relative">
-            <Swiper
-              modules={[Scrollbar, A11y, Pagination]}
-              spaceBetween={50}
-              slidesPerView={1}
-              pagination={{
-                el: ".swiper-pagination-img",
-                clickable: true,
-                renderBullet: renderBullet,
-              }}
-            >
-              {slideImages?.map((image, index) => (
-                <SwiperSlide key={index}>
-                  <div
-                   className="overflow-hidden border border-gray w-[25rem] h-[25rem] grid place-items-center"
-                   onMouseMove={handleMouseMove}
-                   onMouseEnter={handleMouseEnter}
-                   onMouseLeave={handleMouseLeave}
-                  >
-
-                  <img 
-                  style={{
-                    transform: `translate(-${position.x*50 }px, -${
-                      position.y*50 
-                    }px) scale(${zoom})`,
-                    transition: "transform 0.1s ease ",
-                  }}
-                  src={image} className="w-2/3 h-2/3 object-contain" alt="" />
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-            <div className="swiper-pagination-img flex items-center justify-around"></div>
-            </div>
-          ) : (
-            <img src={product?.thumbnail} className="w-[20rem]" alt="" />
-          )}
-        </div> */}
+        
         <DetailProduct slideImages={slideImages} product={product}/>
 
         <div className="font-para self-stretch basis-[50%] mt-20 lg:mt-auto">
@@ -520,18 +480,7 @@ useEffect(() => {
         </div>
       </div>
 
-<div className="">
-  <h2>Test Bar</h2>
-  <div className="mt-3 h-[.35rem] bg-slate-200 dark:bg-gray-dark rounded-full w-[8rem]">
-            <div
-            style={{
-              width: `${width}%`
-            }}
-            className={`bg-primary bg-sale-gradient bg-[length:0.6rem_0.6rem]  h-full rounded-full`}>
-              
-            </div>
-          </div>
-</div>
+
 
       
 

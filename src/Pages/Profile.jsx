@@ -189,12 +189,12 @@ const handleUploadRelatedImage = (event) => {
 
 }
   return (
-    <div className="container mx-auto">
+    <div className="md:container md:mx-auto px-6 md:px-0">
       {/* <NavBar profileUrl={profileUrl} /> */}
 
-      <div className="bg-bg-cart px-10 py-8 shadow rounded-md mt-8 w-[75%] mx-auto grid place-items-center">
+      <div className="bg-bg-cart px-10 py-8 shadow rounded-md mt-8 w-full lg:w-[75%] mx-auto grid place-items-center">
       <div className="mb-5">
-            <img src={currentUser?.profileUrl} className="block w-[10rem] h-[10rem] rounded-full  border-[5px] border-gray-50" alt="" />
+            <img src={currentUser?.profileUrl} className="block w-[7rem] h-[7rem] md:w-[10rem] md:h-[10rem] rounded-full  border-[5px] border-gray-50" alt="" />
           </div>
         <h1 className="">{ifAdmin ? adminName : userName}</h1>
         <div className="flex flex-col items-center">
@@ -204,7 +204,7 @@ const handleUploadRelatedImage = (event) => {
               form="addProductForm"
               type="submit"
               onClick={showModal}
-              className="w-[30rem] bg-bg-second px-3 py-2 rounded-full  mt-4 !hover:text-para"
+              className="xl:w-[30rem]  lg:w-[25rem] md:w-[20rem] sm:w-[15rem] w-[12rem] bg-bg-second px-3 py-2 rounded-full  mt-4 !hover:text-para"
             >
               Add New Product
             </button>
@@ -212,7 +212,7 @@ const handleUploadRelatedImage = (event) => {
 
           <button
             onClick={editProfile}
-            className="w-[30rem] bg-bg-second px-3 py-2 rounded-full  mt-4 !hover:text-para"
+            className="xl:w-[30rem] lg:w-[25rem] md:w-[20rem] sm:w-[15rem] w-[12rem] bg-bg-second px-3 py-2 rounded-full  mt-4 !hover:text-para"
           >
             Edit Profile Image
           </button>

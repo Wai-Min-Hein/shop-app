@@ -155,13 +155,13 @@ const NavBar = ({ profileUrl }) => {
   };
 
   return (
-    <nav className="bg-bg flex items-center justify-between gap-5 z-50  rounded-xl md:px-8 py-3 px-10 mt-4 sticky top-0 shadow-xl container mx-auto">
+    <nav className="bg-bg flex items-center justify-between gap-5 z-50  rounded-xl px-1 py-3 md:px-10 mt-4 sticky top-0 shadow-xl sm:container sm:mx-auto">
       <div className="flex items-center justify-start gap-5">
         <motion.h1
           initial={{ zIndex: 1000 }}
           animate={active ? "open" : "closed"}
           variants={logoVariant}
-          className={`font-header font-semibold text-lg cursor-pointer  `}
+          className={`font-header font-semibold text-[1.1rem] md:text-lg cursor-pointer  `}
           onClick={() => nav("/home")}
         >
           Shopio
@@ -172,13 +172,13 @@ const NavBar = ({ profileUrl }) => {
             initial={{ display: "none" }}
             animate={active ? "open" : "closed"}
             variants={divVariant}
-            className={`fixed top-0 left-0 lg:w-[20vw] md:w-[30vw] h-screen overflow-hidden `}
+            className={`fixed top-0 left-0 lg:w-[20vw] md:w-[30vw] sm:w-[50vw] w-screen h-screen overflow-hidden `}
           >
             <motion.div
               initial={{ opacity: 0 }}
               animate={active ? "open" : "closed"}
               variants={navVariant}
-              className={` bg-gray-300 absolute right-[10%] top-0  w-10 h-10 rounded-full inline-block z-10`}
+              className={` bg-gray-300 absolute right-[10%] top-0  w-10 h-10 rounded-full inline-block z-[1000]`}
             ></motion.div>
           </motion.div>
           <motion.button
@@ -186,7 +186,7 @@ const NavBar = ({ profileUrl }) => {
             animate={active ? "open" : "closed"}
             variants={btnVariant}
             onClick={activeHandler}
-            className={`self-end relative  w-[2.5rem] h-[2.5rem] z-50 rounded-full ${
+            className={`self-end relative w-[2rem] h-[2rem] md:w-[2.5rem] md:h-[2.5rem] z-50 rounded-full ${
               active ? "nav-active bg-transparent" : ""
             }`}
           >
@@ -358,10 +358,10 @@ const NavBar = ({ profileUrl }) => {
 
 
       <span
-        className=" bg-slate-300 p-2 relative rounded-full cursor-pointer ml-auto"
+        className=" bg-slate-300 p-2 relative rounded-full cursor-pointer ml-auto z-20"
         onClick={() => nav("/notification")}
       >
-        <IoIosNotifications className="text-3xl" />
+        <IoIosNotifications className="text-xl md:text-2xl lg:text-3xl" />
 
         {hasSeen.length >0 && (<span className="absolute text-white bg-red-500 w-5 h-5 text-center rounded-full top-[-3px] right-0 inline-block">{hasSeen.length}</span>)}
       </span>
@@ -378,7 +378,7 @@ const NavBar = ({ profileUrl }) => {
               <img
                 src={currentProfileUrl}
                 alt=""
-                className="rounded-full w-[2.5rem] h-[2.5rem]"
+                className="rounded-full w-[1.75rem] h-[1.75rem] md:w-[2.5rem] md:h-[2.5rem]"
               />
             )}
           </div>

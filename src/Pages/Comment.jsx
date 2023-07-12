@@ -142,8 +142,8 @@ const Comment = ({ comment, ifAdmin, currentUser,setReply,setComment, reply }) =
 
   return (
     <div ref={commentSectionRef}  className="mt-5 bg-[#ADB5BD] px-4 py-3 rounded-md text-[#111122]">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center justify-start">
+      <div className="flex flex-col sm:flex-row items-start  sm:items-center sm:justify-between">
+        <div className="flex  items-center justify-start">
           <img
             src={comment?.profileUrl ? comment?.profileUrl : user}
             className="w-[1rem] h-[1rem] rounded-full"
@@ -155,7 +155,7 @@ const Comment = ({ comment, ifAdmin, currentUser,setReply,setComment, reply }) =
 
           </div>
         </div>
-        <p className="">{comment?.time}</p>
+        <p className="self-end">{comment?.time}</p>
       </div>
       <div className="mt-4">
         <p className="">{comment?.comment}</p>

@@ -32,7 +32,7 @@ const DetailProduct = ({slideImages,product}) => {
     `;
   };
   return (
-    <div className="basis-[40%] w-[20rem] h-full sticky top-0">
+    <div className="basis-[40%] w-[20rem] h-full lg:sticky lg:top-0">
         
           
           {slideImages ? (
@@ -50,7 +50,7 @@ const DetailProduct = ({slideImages,product}) => {
               {slideImages?.map((image, index) => (
                 <SwiperSlide key={index}>
                   <div
-                   className="overflow-hidden border border-gray w-[25rem] h-[25rem] grid place-items-center"
+                   className="overflow-hidden border border-gray w-[18rem] h-[18rem] md:w-[20rem] md:h-[20rem] lg:w-[25rem] lg:h-[25rem] grid place-items-center"
                    onMouseMove={handleMouseMove}
                    onMouseEnter={handleMouseEnter}
                    onMouseLeave={handleMouseLeave}
@@ -72,7 +72,7 @@ const DetailProduct = ({slideImages,product}) => {
             </div>
           ) : (
             <div
-                   className="overflow-hidden border border-gray w-[25rem] h-[25rem] grid place-items-center"
+                   className="overflow-hidden border border-gray w-[18rem] h-[18rem] md:w-[20rem] md:h-[20rem] lg:w-[25rem] lg:h-[25rem] grid place-items-center"
                    onMouseMove={handleMouseMove}
                    onMouseEnter={handleMouseEnter}
                    onMouseLeave={handleMouseLeave}

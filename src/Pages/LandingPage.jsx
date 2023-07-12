@@ -72,7 +72,7 @@ const renderBullet = (index, className) =>
     
       >
         <SwiperSlide key={1}>
-          <div className=" flex md:justify-between md:items-center gap-5 md:gap-0 flex-col-reverse md:flex-row  mt-12 px-16 home-slide rounded-lg">
+          <div className=" flex md:justify-between md:items-center gap-5 md:gap-0 flex-col-reverse md:flex-row  mt-12 px-2 md:px-6 lg:px-16 home-slide rounded-lg">
             
             <div className="px-2 basis-[100%] md:basis-[60%] animate__animated animate__backInLeft">
               <h4 className="font-head font-[600]  text-xl text-header">
@@ -97,7 +97,7 @@ const renderBullet = (index, className) =>
           </div>
         </SwiperSlide>
         <SwiperSlide key={2}>
-          <div className=" flex md:justify-between md:items-center gap-5 flex-col-reverse md:flex-row  mt-12 px-16 rounded-lg">
+          <div className=" flex md:justify-between md:items-center gap-5 flex-col-reverse md:flex-row  mt-12 px-2 md:px-6 lg:px-16 rounded-lg">
             <div className="px-2 basis-[100%] md:basis-[60%] animate__animated animate__backInLeft">
               <h4 className="font-head font-[600] text-xl text-header">
                 Upgrade to the Ultimate Phone Experience Today!
@@ -117,7 +117,7 @@ const renderBullet = (index, className) =>
           </div>
         </SwiperSlide>
         <SwiperSlide key={3}>
-          <div className=" flex md:justify-between md:items-center gap-5 flex-col-reverse md:flex-row  mt-12 px-16 rounded-lg">
+          <div className=" flex md:justify-between md:items-center gap-5 flex-col-reverse md:flex-row  mt-12 px-2 md:px-6 lg:px-16 rounded-lg">
             <div className="px-2 basis-[100%] md:basis-[60%] animate__animated animate__backInLeft">
               <h4 className="font-head font-[600] text-xl text-header">
                 Revamp Your Style with Our Premium Fabrics
@@ -137,7 +137,7 @@ const renderBullet = (index, className) =>
           </div>
         </SwiperSlide>
         <SwiperSlide key={4}>
-          <div className=" flex md:justify-between md:items-center gap-5 flex-col-reverse md:flex-row  mt-12 px-16 rounded-lg">
+          <div className=" flex md:justify-between md:items-center gap-5 flex-col-reverse md:flex-row  mt-12 px-2 md:px-6 lg:px-16 rounded-lg">
             <div className="px-2 basis-[100%] md:basis-[60%] animate__animated animate__backInLeft">
               <h4 className="font-head font-[600] text-xl text-header">
                 Step Up Your Style and Comfort with Premium Shoes
