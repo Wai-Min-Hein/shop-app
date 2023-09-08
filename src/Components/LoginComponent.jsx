@@ -10,7 +10,7 @@ import { AnimatePresence, motion } from "framer-motion";
 
 const LoginComponent = () => {
   const nav = useNavigate();
-  const [credentials, setCredentials] = useState({});
+  const [credentials, setCredentials] = useState({email: 'waiminhein@gmail.com', password: 111111});
 
   const login = async () => {
     try {
@@ -112,6 +112,7 @@ const LoginComponent = () => {
             <div className="">
               <input
                 className="focus:outline-none bg-white border-none rounded-full shadow-md px-4 py-2  border-2 w-full font-para text-[rgba(0,0,0.9)]"
+                value={credentials?.email}
                 onChange={(e) =>
                   setCredentials({ ...credentials, email: e.target.value })
                 }
@@ -124,6 +125,8 @@ const LoginComponent = () => {
                 ref={ref}
                 id="pass"
                 className="focus:outline-none bg-transparent"
+                value={credentials?.password}
+
                 onChange={(e) =>
                   setCredentials({ ...credentials, password: e.target.value })
                 }
