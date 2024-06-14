@@ -218,13 +218,14 @@ const NavBar = ({ profileUrl }) => {
                   active ? "inline-block  " : ""
                 }`}
               >
+
                 <input
                   autoFocus
                   value={search}
                   onChange={searchHandler}
                   type="text"
                   placeholder="Search products here..."
-                  className="focus:outline-none bg-transparent flex-1 font-para"
+                  className="focus:outline-none bg-transparent flex-1 font-para "
                 />
               </motion.li>
               <Link to={"/allproduct"}>
@@ -344,7 +345,7 @@ const NavBar = ({ profileUrl }) => {
         </div>
       </div>
 
-      <div className="bg-bg shadow-lg md:flex mx-auto flex-1 justify-between  py-2 px-4 items-center rounded-full hidden">
+      <div className="bg-bg shadow-lg md:flex md:basis-1/3 justify-between  py-2 px-4 items-center rounded-full hidden">
         <input
           value={search}
           onChange={searchHandler}
